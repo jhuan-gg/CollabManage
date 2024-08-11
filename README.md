@@ -39,6 +39,7 @@
 - **Banco de Dados**: MySQL
 - **Containerização**: Docker
 - **Gerenciamento de Dependências**: npm, Yarn
+- **Método CRUD**: Criar, Ler, Atualizar, Deletar
 
 ## Instalação e Configuração
 
