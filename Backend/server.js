@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { Sequelize } = require('sequelize');
+const conn = require('./db/conn')
 
 const app = express();
 const port = 3000;
@@ -9,19 +9,26 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(cors());
 
-const sequelize = new Sequelize('collabmanage', 'user', 'password', {
-  host: 'localhost',
-  dialect: 'mysql'
-});
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.post('/', (req, res) => {
+  const body = req.body
+  res.status(201)
+  res.send(body);
 });
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
-sequelize.authenticate()
-  .then(() => console.log('Database connected.'))
-  .catch(err => console.error('Unable to connect to the database:', err));
+conn
+    // .sync({
+    //     force: true
+    // })
+    .sync()
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Rodando na porta ${port}`)
+        })
+    })
+    .catch((err) => {
+        console.log(err)
+      })
